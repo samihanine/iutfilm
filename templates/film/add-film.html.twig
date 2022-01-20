@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter un film{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un film</h1>
+
+    {{ form(form) }}
+
+    {% if state == 2 %}
+        <p class="error">Le nom du film est introuvable</p>
+    {% endif %}
+
+    {% if state == 1 %}
+        <p>Le film a bien été créé</p>
+    {% endif %}
+
+{% endblock %}

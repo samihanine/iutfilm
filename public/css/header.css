@@ -1,0 +1,26 @@
+header {
+    background: white;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+header ul {
+    display: flex;
+    margin: 0;
+    gap: 20px;
+}
+
+header li {
+    list-style: none;
+}
+
+header a {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}

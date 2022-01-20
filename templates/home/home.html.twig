@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    <h1>Liste de films</h1>
+
+    <div class="wrapper">
+        {% for film in films %}
+            <div class="card">
+                <p>{{ film.name }}</p>
+                <a class="btn" href={{ "/view-film/#{film.id}" }}>voir plus</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

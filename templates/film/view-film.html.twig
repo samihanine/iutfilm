@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter un film{% endblock %}
+
+{% block body %}
+
+    <h1>Informations sur le film</h1>
+
+    <table>
+        <tr>
+            <th>Attribut</th>
+            <th>Valeur</th>
+        </tr>
+        <tr>
+            <td>Nom du film</td>
+            <td>{{ film.name }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ film.description }}</td>
+        </tr>
+        <tr>
+            <td>Note</td>
+            <td>{{ film.note }}</td>
+        </tr>
+    </table>
+
+    <div>
+        {{ form(form) }}
+
+        {% if state == 1 %}
+            <p class="error">Le mot de passe est incorrecte</p>
+    {% endif %}
+    </div>
+    
+
+{% endblock %}

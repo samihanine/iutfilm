@@ -1,0 +1,18 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 400px;
+}
+
+form textarea {
+    min-height: 120px;
+}

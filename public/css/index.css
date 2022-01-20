@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+@import url('header.css');
+@import url('footer.css');
+@import url('btn.css');
+@import url('form.css');
+@import url('table.css');
+
+* {
+    font-family: 'Lato', sans-serif !important;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(90deg, #89add669, #94f8ff8e);
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    min-height: calc(100vh - 50px);
+    padding: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    border-radius: 50px;
+    background: white;
+
+    min-width: 200px;
+    min-height: 200px;
+    color: black;
+    text-decoration: none;
+}
+
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+.error {
+    border: solid 1px red;
+    padding: 10px;
+    border-radius: 10px;
+    color: red;
+    width: fit-content;
+    font-weight: 600;
+}
