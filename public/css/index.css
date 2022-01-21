@@ -53,3 +53,11 @@ main {
     width: fit-content;
     font-weight: 600;
 }
+
+.delete {
+   
+    width: fit-content;
+    padding: 20px;
+    margin: auto;
+    margin-top: 20px;
+}

@@ -30,6 +30,18 @@ class FilmCtrl extends AbstractController
             ->add('name', TextType::class)
             ->add('note', NumberType::class)
             ->add('email', EmailType::class)
+            ->add('file', FileType::class, [
+                'label' => 'Image du film',
+                'constraints' => [
+                  new File([ 
+                    'mimeTypes' => [
+                      'image/png', 
+                      'image/jpeg', 
+                    ],
+                    'mimeTypesMessage' => "Seul les images sont acceptés.",
+                  ])
+                ],
+              ])
             ->add('create', SubmitType::class)
             ->getForm();
             
@@ -54,12 +66,16 @@ class FilmCtrl extends AbstractController
                 $state = 2;
             } else {
                 $state = 1;
+                $file = $data["file"];
+                $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+                $file->move('uploads/image', $fileName);
                 
                 $film = new Film();
                 $film->setName($name);
                 $film->setDescription($plot);
                 $film->setNote($note);
                 $film->setNumberOfVoters(0);
+                $film->setImage('uploads/image/'.$fileName);
 
                 $em = $doctrine->getManager();
                 $em->persist($film);

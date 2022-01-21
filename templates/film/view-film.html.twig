@@ -8,10 +8,6 @@
 
     <table>
         <tr>
-            <th>Attribut</th>
-            <th>Valeur</th>
-        </tr>
-        <tr>
             <td>Nom du film</td>
             <td>{{ film.name }}</td>
         </tr>
@@ -23,14 +19,26 @@
             <td>Note</td>
             <td>{{ film.note }}</td>
         </tr>
+        <tr>
+            <td>Image</td>
+            <td>
+            {% if film.image == NULL %}
+                <img width="300" src="https://cdn.pixabay.com/photo/2014/04/03/10/43/clapboard-311208_960_720.png" />
+            {% else %}
+
+                <img width="300" src={{ asset(film.image) }} />
+
+            {% endif %}
+            </td>
+        </tr>
     </table>
 
-    <div>
+    <div class="delete card">
         {{ form(form) }}
 
         {% if state == 1 %}
             <p class="error">Le mot de passe est incorrecte</p>
-    {% endif %}
+        {% endif %}
     </div>
     
 
