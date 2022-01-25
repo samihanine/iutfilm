@@ -61,3 +61,8 @@ main {
     margin: auto;
     margin-top: 20px;
 }
+
+
+.more {
+    width: 300px !important;
+}

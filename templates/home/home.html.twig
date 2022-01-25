@@ -6,12 +6,36 @@
 
     <h1>Liste de films</h1>
 
+    <div>
+        <h3>Les films sont affichés par ordre de note décroissante, puis par ordre alphabétique pour les films ayant la même notes.</h3>
+    </div>
+
     <div class="wrapper">
-        {% for film in films %}
-            <div class="card">
-                <p>{{ film.name }}</p>
-                <a class="btn" href={{ "/view-film/#{film.id}" }}>voir plus</a>
-            </div>
-        {% endfor %}
+        
+            <table>
+                <tr>
+                    <th>Nom du film</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Notes</th>
+                    <th>Action</th>
+                </tr>
+                {% for film in films|sort((a, b) => a.name <=> b.name)|sort((b, a) => a.note <=> b.note) %}
+                    <tr>
+                        <td>{{ film.name }}</td>
+                        <td>
+                            {% if film.image == NULL or film.image == "" %}
+                                <img width="300" src="https://cdn.pixabay.com/photo/2014/04/03/10/43/clapboard-311208_960_720.png" />
+                            {% else %}
+                                <img width="300" src={{ asset(film.image) }} />
+                            {% endif %}
+                        </td>
+                        <td>{{ film.description }}</td>
+                        <td>{{ film.note }}</td>
+                        <td class="more"><a class="btn" href={{ "/view-film/#{film.id}" }}>voir plus</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        
     </div>
 {% endblock %}

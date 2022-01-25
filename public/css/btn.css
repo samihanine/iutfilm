@@ -1,11 +1,12 @@
-.btn {
-    background: #5eb5e0;
+.btn, button {
+    background: #5eb5e0 !important;
     cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 18px !important;
+    font-weight: bold !important;
     color: white;
     text-decoration: none;
     padding: 10px;
     border-radius: 10px;
     border: none;
+    margin-top: 7px;
 }

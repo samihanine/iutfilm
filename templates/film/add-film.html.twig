@@ -5,15 +5,16 @@
 {% block body %}
 
     <h1>Ajouter un film</h1>
-
-    {{ form(form) }}
+    {% if state != 1 %}
+        {{ form(form) }}
+    {% endif %}
 
     {% if state == 2 %}
-        <p class="error">Le nom du film est introuvable</p>
+        <p class="error">{{ error }} </p>
     {% endif %}
 
     {% if state == 1 %}
-        <p>Le film a bien été créé</p>
+        <h2>Le film a bien été créé</h2>
     {% endif %}
 
 {% endblock %}

@@ -32,6 +32,7 @@ class FilmCtrl extends AbstractController
             ->add('email', EmailType::class)
             ->add('file', FileType::class, [
                 'label' => 'Image du film',
+                'required' => false,
                 'constraints' => [
                   new File([ 
                     'mimeTypes' => [
@@ -42,7 +43,7 @@ class FilmCtrl extends AbstractController
                   ])
                 ],
               ])
-            ->add('create', SubmitType::class)
+            ->add('create', SubmitType::class, ['label' => 'Créer'])
             ->getForm();
             
 
@@ -51,32 +52,47 @@ class FilmCtrl extends AbstractController
         $data = $form->getData();
 
         $state = 0;
+        $error = "";
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // data is an array with "name", 
             $data = $form->getData();
 
             $name = $data["name"];
-            $note = $data["note"];
+            $note = (int)$data["note"];
+
+            if ($note < 0 or $note > 10) {
+                $state = 2;
+                $error = "La note doit être comprise entre 0 et 10";
+            }
             
+            // on récupère une description
             $filmAPI = new FilmAPI($httpClient);
             $plot = $filmAPI->getDescription($name);
 
             if ($plot == "") {
+                // si le service n'a pas trouvé de description, on affiche une erreur
+                $error = "Nous n'avons pas pu trouver de description pour le nom de votre film";
                 $state = 2;
-            } else {
+            }
+
+            if ($state == 0) {
                 $state = 1;
-                $file = $data["file"];
-                $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
-                $file->move('uploads/image', $fileName);
-                
+                // on créé l'objet film
                 $film = new Film();
                 $film->setName($name);
                 $film->setDescription($plot);
                 $film->setNote($note);
                 $film->setNumberOfVoters(0);
-                $film->setImage('uploads/image/'.$fileName);
 
+                // si l'utilsateur a upload une image, on ajoute son chemin au film
+                $file = $data["file"];
+                if ($file) {
+                    $fileName = md5(uniqid()).'.'.$file->guessExtension(); 
+                    $file->move('uploads/image', $fileName);
+                    $film->setImage('uploads/image/'.$fileName);
+                }
+
+                // on insère le film dans la bdd
                 $em = $doctrine->getManager();
                 $em->persist($film);
                 $em->flush();
@@ -85,7 +101,8 @@ class FilmCtrl extends AbstractController
 
         return $this->render('film/add-film.html.twig', [
             'form' => $form->createView(),
-            'state' => $state
+            'state' => $state,
+            'error' => $error
         ]);
     }
 
