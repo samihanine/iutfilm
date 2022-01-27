@@ -2367,16 +2367,16 @@
         },
         {
             "name": "shuchkin/simplexlsx",
-            "version": "0.8.31",
+            "version": "0.8.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shuchkin/simplexlsx.git",
-                "reference": "01368371cb5cadf3b986d4c7080c7fdfd0b6f295"
+                "reference": "0de04637f322df8a0ed233339d182c77fb4d0e9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shuchkin/simplexlsx/zipball/01368371cb5cadf3b986d4c7080c7fdfd0b6f295",
-                "reference": "01368371cb5cadf3b986d4c7080c7fdfd0b6f295",
+                "url": "https://api.github.com/repos/shuchkin/simplexlsx/zipball/0de04637f322df8a0ed233339d182c77fb4d0e9c",
+                "reference": "0de04637f322df8a0ed233339d182c77fb4d0e9c",
                 "shasum": ""
             },
             "require": {
@@ -2412,9 +2412,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shuchkin/simplexlsx/issues",
-                "source": "https://github.com/shuchkin/simplexlsx/tree/0.8.31"
+                "source": "https://github.com/shuchkin/simplexlsx/tree/0.8.33"
             },
-            "time": "2021-12-01T11:52:24+00:00"
+            "time": "2022-01-22T12:23:59+00:00"
         },
         {
             "name": "symfony/asset",
@@ -3667,16 +3667,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.1.2",
+            "version": "v2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "82891fd872056499ce7a7c4aca7ffeb86a341878"
+                "reference": "110e8928b6e719e9b9f146c8fd92c41a4b74a3ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/82891fd872056499ce7a7c4aca7ffeb86a341878",
-                "reference": "82891fd872056499ce7a7c4aca7ffeb86a341878",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/110e8928b6e719e9b9f146c8fd92c41a4b74a3ac",
+                "reference": "110e8928b6e719e9b9f146c8fd92c41a4b74a3ac",
                 "shasum": ""
             },
             "require": {
@@ -3712,7 +3712,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.1.2"
+                "source": "https://github.com/symfony/flex/tree/v2.1.4"
             },
             "funding": [
                 {
@@ -3728,7 +3728,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-19T17:52:43+00:00"
+            "time": "2022-01-27T10:25:12+00:00"
         },
         {
             "name": "symfony/form",

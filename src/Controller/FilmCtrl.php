@@ -25,7 +25,7 @@ class FilmCtrl extends AbstractController
      */
     public function new(Request $request, HttpClientInterface $httpClient, ManagerRegistry $doctrine): Response
     {
-
+        // on créé le formulaire
         $defaultData = ['message' => 'Type your message here'];
         $form = $this->createFormBuilder($defaultData)
             ->add('name', TextType::class, ['label' => 'Nom du film'])
@@ -63,12 +63,13 @@ class FilmCtrl extends AbstractController
             $note = (int)$data["note"];
             $numberOfVoters = (int)$data["numberOfVoters"];
 
+            // si la note n'est pas comprise entre 0 et 10
             if ($note < 0 or $note > 10) {
                 $state = 2;
                 $error = "La note doit être comprise entre 0 et 10.";
             }
 
-
+            // si le film existe déjà
             $find_films = $doctrine->getRepository(Film::class)->findBy(array('name' => $name));
             if (count($find_films) > 0) {
                 $state = 2;
@@ -124,7 +125,7 @@ class FilmCtrl extends AbstractController
         $film = $doctrine->getRepository(Film::class)->find($id);
         $state = 0;
         
-        
+        // on créé le formulaire
         $defaultData = ['message' => 'Type your message here'];
         $form = $this->createFormBuilder($defaultData)
             ->add('password', TextType::class)
@@ -133,10 +134,11 @@ class FilmCtrl extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            // on récupère le mot de passe
             $pwd = $this->getParameter('admin_password');
             
             $data = $form->getData();
-
+            // on vérifie le mot de passe
             if ($data["password"] != $pwd) {
                 $state = 1;
             } else {
@@ -215,10 +217,11 @@ class FilmCtrl extends AbstractController
     }
 
     /**
-     * @Route("/stats", name="stats-film")
+     * @Route("/statistic", name="stats-film")
      */
     public function stats(Request $request, ManagerRegistry $doctrine): Response
     {
+        // on génère un tableau 2D faisant correspondre le nom d'un film à une note
         $films = $doctrine->getRepository(Film::class)->findAll();
         $array = [
             ['Nom du film', 'Vote du film']
@@ -226,7 +229,8 @@ class FilmCtrl extends AbstractController
         foreach($films as $film) {
             $array[] = [$film->getName(), $film->getNote()];
         }
-
+        
+        // on créé le graphique
         $pieChart = new PieChart();
         $pieChart->getData()->setArrayToDataTable(
             $array

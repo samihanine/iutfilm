@@ -15,7 +15,7 @@ class Home extends AbstractController
      */
     public function main(ManagerRegistry $doctrine): Response
     {
-
+        // on récupère l'ensemble des films
         $films = $doctrine->getRepository(Film::class)->findAll();
 
         return $this->render('home/home.html.twig', [

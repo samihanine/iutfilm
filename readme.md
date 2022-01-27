@@ -8,7 +8,10 @@ Objectif : rédiger et envoyer des mails à des entreprises (fictives) répertor
 ```
 git clone https://github.com/samihanine/company-mailer
 ```
-
+* installer les dépendances
+```
+composer update --ignore-platform-reqs
+```
 * importer la bdd depuis le fichier : ```companymail.sql```
 * modifier le .env
 ```
