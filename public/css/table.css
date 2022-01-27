@@ -7,3 +7,7 @@ td, th {
 table {
     margin: auto;
 }
+
+table img {
+    width: 100px !important;
+}

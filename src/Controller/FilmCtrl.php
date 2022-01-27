@@ -29,6 +29,7 @@ class FilmCtrl extends AbstractController
         $form = $this->createFormBuilder($defaultData)
             ->add('name', TextType::class)
             ->add('note', NumberType::class)
+            ->add('numberOfVoters', NumberType::class, ['label' => 'Nombre de votant' ])
             ->add('email', EmailType::class)
             ->add('file', FileType::class, [
                 'label' => 'Image du film',
@@ -55,10 +56,11 @@ class FilmCtrl extends AbstractController
         $error = "";
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // on récupère les données du formulaire
             $data = $form->getData();
-
             $name = $data["name"];
             $note = (int)$data["note"];
+            $numberOfVoters = (int)$data["numberOfVoters"];
 
             if ($note < 0 or $note > 10) {
                 $state = 2;
@@ -82,7 +84,7 @@ class FilmCtrl extends AbstractController
                 $film->setName($name);
                 $film->setDescription($plot);
                 $film->setNote($note);
-                $film->setNumberOfVoters(0);
+                $film->setNumberOfVoters($numberOfVoters);
 
                 // si l'utilsateur a upload une image, on ajoute son chemin au film
                 $file = $data["file"];
@@ -183,7 +185,10 @@ class FilmCtrl extends AbstractController
                     $film->setName($item[0]);
                     $film->setDescription($item[1]);
                     $film->setNote($item[2]);
-                    $film->setNumberOfVoters($item[3]);
+                    
+                    $nb = 0;
+                    if (isset($item[3])) { $nb = $item[3]; }
+                    $film->setNumberOfVoters($nb);
 
                     $em = $doctrine->getManager();
                     $em->persist($film);
