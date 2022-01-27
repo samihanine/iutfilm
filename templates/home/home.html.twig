@@ -18,6 +18,7 @@
                     <th>Image</th>
                     <th>Description</th>
                     <th>Notes</th>
+                    <th>Nombre de votants</th>
                     <th>Action</th>
                 </tr>
                 {% for film in films|sort((a, b) => a.name <=> b.name)|sort((b, a) => a.note <=> b.note) %}
@@ -32,6 +33,7 @@
                         </td>
                         <td>{{ film.description }}</td>
                         <td>{{ film.note }}</td>
+                        <td>{{ film.numberOfVoters }}</td>
                         <td class="more"><a class="btn" href={{ "/view-film/#{film.id}" }}>voir plus</a></td>
                     </tr>
                 {% endfor %}

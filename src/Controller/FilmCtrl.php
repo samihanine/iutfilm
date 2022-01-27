@@ -16,6 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Service\FilmAPI;
 use SimpleXLSX;
 use Symfony\Component\Validator\Constraints\File;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 class FilmCtrl extends AbstractController
 {
@@ -27,7 +28,7 @@ class FilmCtrl extends AbstractController
 
         $defaultData = ['message' => 'Type your message here'];
         $form = $this->createFormBuilder($defaultData)
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['label' => 'Nom du film'])
             ->add('note', NumberType::class)
             ->add('numberOfVoters', NumberType::class, ['label' => 'Nombre de votant' ])
             ->add('email', EmailType::class)
@@ -64,7 +65,14 @@ class FilmCtrl extends AbstractController
 
             if ($note < 0 or $note > 10) {
                 $state = 2;
-                $error = "La note doit être comprise entre 0 et 10";
+                $error = "La note doit être comprise entre 0 et 10.";
+            }
+
+
+            $find_films = $doctrine->getRepository(Film::class)->findBy(array('name' => $name));
+            if (count($find_films) > 0) {
+                $state = 2;
+                $error = "Un film avec ce nom existe déjà.";
             }
             
             // on récupère une description
@@ -206,5 +214,33 @@ class FilmCtrl extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/stats", name="stats-film")
+     */
+    public function stats(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $films = $doctrine->getRepository(Film::class)->findAll();
+        $array = [
+            ['Nom du film', 'Vote du film']
+        ];
+        foreach($films as $film) {
+            $array[] = [$film->getName(), $film->getNote()];
+        }
+
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable(
+            $array
+        );
+        $pieChart->getOptions()->setTitle('Représentation des différentes notes des films');
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('#009900');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(20);
+    
+        return $this->render('film/stats.html.twig', array('piechart' => $pieChart));
+    }
 }
 

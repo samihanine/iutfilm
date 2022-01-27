@@ -66,3 +66,7 @@ main {
 .more {
     width: 300px !important;
 }
+
+* rect {
+    fill: #89add600 !important;
+}
